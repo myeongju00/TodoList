@@ -27,19 +27,22 @@ public class TodoEntity extends BaseTimeEntity {
         private String content;
         private String imageURl;
         private int progressCount;
+        private int colorCount;
 
         @Builder
-        public TodoEntity(String title, String content, String imageURl, int progressCount) {
+        public TodoEntity(String title, String content, String imageURl, int progressCount, int colorCount) {
                 this.title = title;
                 this.content = content;
                 this.imageURl = imageURl;
                 this.progressCount = progressCount;
+                this.colorCount = colorCount;
         }
 
-        public void update(String title, String content, String imageURl, int progressCount) {
+        public void update(String title, String content, String imageURl, int progressCount, int colorCount) {
                 this.title = title;
                 this.content = content;
                 this.imageURl = imageURl;
                 this.progressCount = progressCount;
+                this.colorCount = colorCount;
         }
 }
