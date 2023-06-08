@@ -3,6 +3,8 @@ package com.todoList.controller;
 import com.todoList.controller.annotation.Version1RestController;
 import com.todoList.dto.TodoEntityDto;
 import com.todoList.service.TodoService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.SwaggerDefinition;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +34,9 @@ public class TodoController {
         return todoService.update(id, requestDto);
     }
 
-    @PostMapping
+    @ApiOperation(value = "TODO 등록",
+        notes = "colorCount는 1, 2, 3 이 들어가야 합니다.")
+    @PostMapping("/todo")
     public TodoEntityDto postTodo(@RequestBody TodoEntityDto requestDto) {
         return todoService.save(requestDto);
     }
@@ -42,5 +46,4 @@ public class TodoController {
         todoService.deleteTodoById(id);
         return id;
     }
-
 }

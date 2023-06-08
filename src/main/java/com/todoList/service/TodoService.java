@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class TodoService {
     private final TodoRepository todoRepository;
 
-    @Transactional
     public TodoEntityDto getTodoById(Long id) {
         TodoEntity entity = todoRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("해당 글이 없습니다. id = " + id));
@@ -29,14 +28,18 @@ public class TodoService {
     public Long update(Long id, TodoEntityDto requestDto) {
         TodoEntity entity = todoRepository.findById(id).orElseThrow(() -> new
                 IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        entity.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getImageURl(), requestDto.getProgressCount());
+        entity.update(requestDto.getTitle(), requestDto.getContent(),
+                requestDto.getImageURl(), requestDto.getProgressCount(), requestDto.getColorCount());
 
         return id;
     }
+
+    @Transactional
     public void deleteTodoById(Long id) {
         todoRepository.deleteById(id);
     }
 
+    @Transactional
     public TodoEntityDto save(TodoEntityDto todoEntityDto) {
         TodoEntity entity =  todoRepository.save(todoEntityDto.toEntity());
         return new TodoEntityDto(entity);
