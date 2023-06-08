@@ -19,8 +19,13 @@ RUN addgroup --system --gid 1000 worker
 RUN adduser --system --uid 1000 --ingroup worker --disabled-password worker
 USER worker:worker
 
-FROM openjdk:11-oracle
-ARG JAR_FILE=build/libs/todoList-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} app.jar
+#FROM openjdk:11-oracle
+#ARG JAR_FILE=build/libs/todoList-0.0.1-SNAPSHOT.jar
+
+COPY --from=builder build/libs/*.jar app.jar
+
+ENV PROFILE ${PROFILE}
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+ENTRYPOINT ["java", "-Dspring.profiles.active=${PROFILE}", "-jar", "/app.jar"]
